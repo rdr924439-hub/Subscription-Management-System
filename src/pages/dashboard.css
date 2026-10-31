@@ -1,9 +1,17 @@
+@import url('https://fonts.googleapis.com/css2?family=Tiny5+Duo&display=swap');
+
+:root {
+  --primary-color: #07869c;
+  --primary-hover: #056b7d;
+  --primary-light: #e6f5f7;
+}
+
 .dashboard {
   min-height: 100vh;
   padding: 40px;
   background: #f4f6fb;
   color: #182238;
-  font-family: Inter, system-ui, sans-serif;
+  font-family: 'Tiny5 Duo', sans-serif;
 }
 
 .dashboard-header {
@@ -15,7 +23,7 @@
 }
 
 .eyebrow {
-  color: #5267d8;
+  color: var(--primary-color);
   font-size: 12px;
   font-weight: 800;
   letter-spacing: 1.5px;
@@ -24,6 +32,7 @@
 .dashboard h1 {
   margin: 8px 0;
   font-size: 36px;
+  color: var(--primary-color);
 }
 
 .subtitle {
@@ -34,10 +43,15 @@
   padding: 12px 18px;
   border: none;
   border-radius: 10px;
-  background: #5267d8;
+  background: var(--primary-color);
   color: white;
   font-weight: 700;
   cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.refresh-button:hover {
+  background: var(--primary-hover);
 }
 
 .stats-grid {
@@ -82,27 +96,28 @@
 
 .panel h2 {
   margin-top: 0;
+  color: var(--primary-color);
 }
 
 .table-wrapper {
   overflow-x: auto;
 }
 
-table {
+.dashboard table {
   width: 100%;
   border-collapse: collapse;
   text-align: left;
 }
 
-th,
-td {
+.dashboard th,
+.dashboard td {
   padding: 16px 12px;
   border-bottom: 1px solid #edf0f5;
   white-space: nowrap;
 }
 
-th {
-  color: #7b879a;
+.dashboard th {
+  color: var(--primary-color);
   font-size: 12px;
   text-transform: uppercase;
 }
@@ -126,6 +141,26 @@ th {
   overflow-wrap: anywhere;
 }
 
+.dashboard button {
+  background-color: var(--primary-color);
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+.dashboard button:hover {
+  background-color: var(--primary-hover);
+}
+
+.dashboard a {
+  color: var(--primary-color);
+}
+
+.dashboard .active {
+  background-color: var(--primary-light);
+  color: var(--primary-color);
+}
+
 @media (max-width: 1000px) {
   .stats-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -144,5 +179,29 @@ th {
 
   .stats-grid {
     grid-template-columns: 1fr;
+  }
+}
+.dashboard-actions {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+
+.dashboard .logout-button {
+  padding: 12px 18px;
+  border: 1px solid var(--primary-color);
+  border-radius: 10px;
+  background: white;
+  color: var(--primary-color);
+  font-weight: 700;
+}
+
+.dashboard .logout-button:hover {
+  background: var(--primary-light);
+}
+
+@media (max-width: 600px) {
+  .dashboard-actions {
+    flex-wrap: wrap;
   }
 }

@@ -16,6 +16,13 @@ export default function Dashboard() {
     outstandingInvoices: 0,
     overdueInvoices: 0,
   });
+  async function handleLogout() {
+  const { error } = await supabase.auth.signOut();
+
+  if (error) {
+    setError(error.message || "Unable to sign out.");
+  }
+}
 
   const [payments, setPayments] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -107,9 +114,15 @@ export default function Dashboard() {
           <p className="subtitle">Monitor your subscription business.</p>
         </div>
 
-        <button className="refresh-button" onClick={loadDashboard}>
-          Refresh data
-        </button>
+        <div className="dashboard-actions">
+  <button className="refresh-button" onClick={loadDashboard}>
+    Refresh data
+  </button>
+
+  <button className="logout-button" onClick={handleLogout}>
+   logout 
+  </button>
+</div>
       </header>
 
       {error && (
