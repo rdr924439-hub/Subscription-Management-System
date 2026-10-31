@@ -1,14 +1,36 @@
 
 import { useState } from "react";
+import { supabase } from "../supabaseClient";
 import "./Login.css";
 
 export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
 
-  function handleLogin(event) {
+  async function handleLogin(event) {
     event.preventDefault();
-    alert(`Login form submitted for ${email}`);
+    setError("");
+    setLoading(true);
+
+    try {
+      const { error } = await supabase.auth.signInWithPassword({
+        email: email.trim(),
+        password,
+      });
+
+      if (error) throw error;
+
+      // Temporary success message until the dashboard is built.
+      alert("Login successful!");
+    } catch {
+      setError(
+        "Unable to sign in. Check your email and password, then try again."
+      );
+    } finally {
+      setLoading(false);
+    }
   }
 
   return (
@@ -51,8 +73,18 @@ export default function Login() {
             <a href="#forgot-password">Forgot password?</a>
           </div>
 
-          <button type="submit" className="login-button">
-            Sign in
+          {error && (
+            <p className="login-error" role="alert">
+              {error}
+            </p>
+          )}
+
+          <button
+            type="submit"
+            className="login-button"
+            disabled={loading}
+          >
+            {loading ? "Signing in..." : "Sign in"}
           </button>
         </form>
 
